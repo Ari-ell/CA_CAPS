@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="fragments/layout.html :: html_head">
+<title>Lecturer - Manage Grades</title>
+</head>
+
+<body style="margin-left: 10px; margin-top:10px">
+    <div th:replace="fragments/layout.html :: header"/> 
+    <div th:replace="fragments/layout.html :: menu"/>
+    <br/>
+	<div class="margin-auto">
+		<br/>
+        <h4 style="font-weight: bolder;">Student Detail</h4>
+		<br/>
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th scope="col">Student Matriculation ID</th>
+					<th scope="col">Full Name</th>
+					<th scope="col">Email</th>
+					<th scope="col">Enrollment Date</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td th:text=${student.username}>Matric No.</td>
+					<td th:text="${student.firstName + ' ' + student.lastName}">Name</td>
+					<td th:text=${student.email}>Email</td>
+					<td th:text=${student.enrollmentDate}>Enrollment Date</td>
+				</tr>
+			</tbody>
+		</table>
+        <br/>
+		<br/>
+        <h4 style="font-weight: bolder;">Enrollment Details</h4>
+		<br/>
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th scope="col">Course Code</th>
+					<th scope="col">Course Name</th>
+					<th scope="col">Enrollment Status</th>
+					<th scope="col">Course Credits</th>
+					<th scope="col">Current Score</th>
+					<th scope="col">New / Edit Marks</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="enrol : ${enrollment}" style="width: min-content;">
+					<td th:text=${enrol.course.courseCode}>Course Code</td>
+					<td th:text=${enrol.course.name}>Course Name</td>
+					<td th:text=${enrol.enrollmentStatus}>Enrollment Status</td>
+                    <td th:text=${enrol.course.credits}>Course Credits</td>
+					<td th:text="(${enrol.score} != null) ? ${enrol.score} : 'No score currently set'">Current Grade</td>
+					<div>
+						<td>
+							<form method="get" th:action="@{'/lecturer/save/' + ${enrol.student.id} + '/' + ${enrol.course.id}}" 
+									th:object="${enrollment}" class="form-inline">
+								<div class="form-group">
+									<input type="number" class="form-control form-control-sm" id="score"
+										placeholder="Enter score" th:name="score" th:value="${score}" 
+										min="0" max="100" required>
+						</td>
+						<td>
+									<button type="submit" value="submit" class="btn btn-warning btn-sm">Submit</button>
+							</form>
+						</td>
+					</div>
+					</div>
+				</tr>
+			</tbody>
+		</table>
+    </div>
+</body>
+
+<footer th:replace="fragments/layout.html :: footer"/>
+</html>

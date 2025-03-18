@@ -1,0 +1,17 @@
+{
+  "files": {
+    "main.css": "/static/css/main.30ea52ad.css",
+    "main.js": "/static/js/main.25d2d626.js",
+    "static/js/787.d8d9a761.chunk.js": "/static/js/787.d8d9a761.chunk.js",
+    "static/media/Tin.png": "/static/media/Tin.1fc5c57036ebfb803e16.png",
+    "static/media/website_liufan.tmb-.png": "/static/media/website_liufan.tmb-.dec74fdc4ec9b1856e06.png",
+    "index.html": "/index.html",
+    "main.30ea52ad.css.map": "/static/css/main.30ea52ad.css.map",
+    "main.25d2d626.js.map": "/static/js/main.25d2d626.js.map",
+    "787.d8d9a761.chunk.js.map": "/static/js/787.d8d9a761.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.30ea52ad.css",
+    "static/js/main.25d2d626.js"
+  ]
+}

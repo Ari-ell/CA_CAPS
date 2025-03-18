@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="fragments/layout.html :: html_head"></head>
+
+<body style="margin-left: 20px; margin-top:20px">
+    <div th:replace="fragments/layout.html :: header" />
+    <div th:replace="fragments/layout.html :: menu" />
+    <br />
+    <h4 style="font-weight: bolder; margin-left: 20px;">Submit Rejection Request</h4>
+
+    <div th:if="${#lists.isEmpty(approveStudent)}">
+        <br/>
+        <br/>
+        <h4>No student(s) enrolled in selected course</h4>
+    </div>
+
+    <div th:if="${not #lists.isEmpty(approveStudent)}" style="margin-left: 20px;">
+        <form  action="#" th:action="@{/lecturer/course/rejection/save/{courseid} (courseid=${chosenCourse.id})}" method="post">
+            <h4 style="padding-top: 0.5rem;"> Course Selected: <span th:text="${chosenCourse.name + ' [' + chosenCourse.courseCode + ']'}"></span> </h4>
+            <h5 style="padding-top: 1rem;"> Select Student:</h5>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div th:each="item : ${approveStudent}" style="padding-bottom: 0.5rem;">
+                                <input type="radio" th:value="${item.id}" name="studentid" required>
+                                <label th:text="${ '[' + item.username +'] ' + item.firstName + ' ' + item.lastName}"></label>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding-top: 0.5rem;">
+                            <input type="submit" value="Submit" class="blcass" />
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </form>
+    </div>
+
+</body>
+
+<footer th:replace="fragments/layout.html :: footer" />
+
+</html>

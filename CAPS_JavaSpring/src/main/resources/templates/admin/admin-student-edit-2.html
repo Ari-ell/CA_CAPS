@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="fragments/layout.html :: html_head">
+        <title>Admin - Edit Student Page</title>
+    </head>
+
+    <body style="margin-left: 20px; margin-top:20px">
+        <div th:replace="fragments/layout.html :: header"/>
+        <!-- <div th:replace="fragments/layout.html :: menu"/> -->
+        <nav class="navbar navbar-expand-md navbar-light" style="background-color: lightblue;">
+            <div>
+                <nav class="navbar navbar-expand-ld bg-body-tertiary">
+                    <div class="container-fluid">
+                        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                            <ul class="navbar-nav">
+                                <li class="nav-item">
+                                    <a class="nav-link active" aria-current="page" th:href="@{/admin/dashboard}">Home</a>
+                                </li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Manage Students
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item" th:href="@{/admin/studentManagement/list}">View students</a></li>
+                                        <li><a class="dropdown-item" th:href="@{/admin/studentManagement/create}">Add New Student</a></li>
+                                    </ul>
+                                </li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Manage Lecturers
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item" th:href="@{/admin/lecturer/list}">Manage Lecturers</a></li>
+                                        <li><a class="dropdown-item" th:href="@{/admin/lecturer/new}">Add New Lecturer</a></li>
+                                    </ul>
+                                </li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Manage Courses
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item" th:href="@{/admin/courses}">Manage Courses</a></li>
+                                        <li><a class="dropdown-item" th:href="@{/admin/courses/new}">Add New Course</a></li>
+                                    </ul>
+                                </li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Manage Enrollments
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item" th:href="@{/admin/request}">View Enrollment Reject Requests</a></li>
+                                        <li><a class="dropdown-item" th:href="@{/admin/request/history}">View Enrollment Reject History</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </nav>
+        <br/>
+        <div class = "container">
+            <div class = "row">
+                <div class = "col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
+                    <h3 class = "text-center py-2"> Edit Student Page</h3>
+                    <div class = "card-body">
+                        <form th:action = "@{/admin/studentManagement/edit/{id}(id=${student.id})}" th:object = "${student}" method = "post">
+                        <div class = "form-row">        
+                        
+                            <div class = "form-group form-group col-md-12 py-2">
+                                <label>Username</label>
+                                <input
+                                type = "text"
+                                name = "username"
+                                th:field = "*{username}"
+                                class = "form-control"
+                                placeholder="Enter username"
+                                disabled readonly
+                                />
+                            </div>
+                            
+                            <div class = "form-group col-md-6 py-2">
+                                <label>First Name</label>
+                                <input
+                                type = "text"
+                                name = "firstName"
+                                th:field = "*{firstName}"
+                                class = "form-control"
+                                placeholder="Enter First Name"
+                                />
+                                <span th:if="${#fields.hasErrors('firstName')}" 
+                                th:errors="*{firstName}"
+                                class="text-danger">
+                            </div>
+
+                            <div class = "form-group col-md-6 py-2">
+                                <label>Last Name</label>
+                                <input
+                                type = "text"
+                                name = "lastName"
+                                th:field = "*{lastName}"
+                                class = "form-control"
+                                placeholder="Enter LastName"
+                                />
+                                <span th:if="${#fields.hasErrors('lastName')}"
+                                th:errors="*{lastName}"
+                                class="text-danger">
+                            </div>
+
+                            <div class = "form-group col-md-6 py-2">
+                                <label>email</label>
+                                <input
+                                type = "text"
+                                name = "email"
+                                th:field = "*{email}"
+                                class = "form-control"
+                                placeholder="Enter Email Address"
+                                />
+                                <span th:if="${#fields.hasErrors('email')}"
+                                th:errors="*{email}"
+                                class="text-danger">
+                            </div>
+                                <input type="hidden" 
+                                th:field="*{password}" 
+                                name = "password"
+                                id="password"/>
+                            </div>
+                            <div class = "box-footer py-2">
+                                <button type = "submit" class = "btn btn-primary">
+                                    Submit
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+
+    <footer th:replace="fragments/layout.html :: footer"/>
+</html>

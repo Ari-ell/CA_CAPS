@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="fragments/layout.html :: html_head">
+        <title>Admin - Create Course</title>
+    </head>
+
+    <body style="margin-left: 20px; margin-top:20px">
+      <div th:replace="fragments/layout.html :: header"></div>
+      <div th:replace="fragments/layout.html :: menu"></div>
+  
+      <br/>
+
+      <div class="container">
+        <h3 style="font-weight: bolder; padding-bottom: 0.5rem;">Course Details</h3>
+        <table class="table table-striped ">
+          <thead>
+            
+        </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">Course Name:</th>
+                    <td th:text="${course.name}"></td>
+                </tr>
+                <tr>
+                    <th scope="row">Course Code:</th>
+                    <td th:text="${course.courseCode}"></td>
+                </tr>
+                <tr>
+                    <th scope="row">Description:</th>
+                    <td th:text="${course.description}"></td>
+                </tr>
+                <tr>
+                    <th scope="row">Course Capacity:</th>
+                    <td th:text="${course.capacity}"></td>
+                </tr>
+                <tr>
+                    <th scope="row">Credits:</th>
+                    <td th:text="${course.credits}"></td>
+                </tr>
+                <tr>
+                    <th scope="row">Lecturers:</th>
+                    <td>
+                        <ul>
+                            <li th:each="lecturer : ${lecturerNames}" th:text="${lecturer}"></li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">Number of Students Enrolled:</th>
+                    <td th:text="${course.enrollments.size()}"></td>
+                </tr>
+                <tr>
+                    <th scope="row">Course Start Date:</th>
+                    <td th:text="${course.startDate}"></td>
+                </tr>
+                <tr>
+                    <th scope="row">Course End Date:</th>
+                    <td th:text="${course.endDate}"></td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="text-right">
+          <button type="button" class="btn btn-primary" onclick="goBack()">Back</button>
+      </div>
+  </div>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script>
+      function goBack() {
+          window.history.back(); // Go back to the previous page
+      }
+  </script>
+    </body>
+    <footer th:replace="fragments/layout.html :: footer"/>
+</html>

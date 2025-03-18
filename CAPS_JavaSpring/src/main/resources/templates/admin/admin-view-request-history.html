@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="fragments/layout.html :: html_head"></head>
+
+
+<body style="margin-left: 20px; margin-top:20px">
+  <div th:replace="fragments/layout.html :: header"/>
+  <div th:replace="fragments/layout.html :: menu"/>
+  <h4 style="font-weight: bolder; padding-bottom: 1rem; padding-top: 2rem; margin-left: 20px;">List of Rejection History</h4>
+
+  <div th:if="${ #lists.isEmpty(rejectedStudent)}">
+    <h5  style=" margin-left: 20px; padding-top: 1.5rem; color: darkgreen;">No enrollment rejection history to show</h5>
+    <br/>
+  </div>
+
+  <div th:if="${not #lists.isEmpty(rejectedStudent)}" style=" margin-left: 20px; padding-top: 1.5rem;">
+    <table class="table table-striped">
+      <tr>
+        <th>Matric No</th>
+        <th>Student Name</th>
+        <th>Course Code</th>
+        <th>Course Name</th>
+        <th>Status</th>
+      </tr>
+      <tr th:each="item, iStat : ${rejectedStudent}">
+        <td th:text="${item.student.username}">MatricId</td>
+        <td th:text="${item.student.firstName + ' ' + item.student.lastName}">name</td>
+        <td th:text="${item.course.courseCode}">CourseCode</td>
+        <td th:text="${item.course.name}">course</td>
+        <td th:text="${item.enrollmentStatus}">enrollmentStatus</td>
+      </tr>
+    </table>
+  </div>
+</body>
+<br/>
+<br/>
+<br/>
+<footer th:replace="fragments/layout.html :: footer"></footer>
+</html>

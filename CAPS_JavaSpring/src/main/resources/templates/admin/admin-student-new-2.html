@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="fragments/layout.html :: html_head">
+        <title>Admin - Create New Student</title>
+    </head>
+
+    <body style="margin-left: 20px; margin-top:20px">
+        <div th:replace="fragments/layout.html :: header"/>
+        <div th:replace="fragments/layout.html :: menu"/>
+        <br/>
+        <div class = "container">
+            <div class = "row">
+                <div class = "col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
+                    <h3 class = "text-center py-2"> Create New Student</h3>
+                    <div class = "card-body">
+                        <form th:action = "@{'/admin/studentManagement/create'}" th:object = "${student}" method = "POST">
+                        <div class = "form-row">
+                        
+                            <div class = "form-group form-group col-md-12 py-2">
+                                <label>Username</label>
+                                <input
+                                type = "text"
+                                name = "username"
+                                th:field = "*{username}"
+                                class = "form-control"
+                                placeholder="Enter username"
+                                disabled readonly
+                                />
+                                <span th:if="${#fields.hasErrors('username')}"
+                                th:errors="*{username}"> 
+                            </div>
+                            
+                            <div class = "form-group col-md-6 py-2">
+                                <label>First Name</label>
+                                <input
+                                type = "text"
+                                name = "firstName"
+                                th:field = "*{firstName}"
+                                class = "form-control"
+                                placeholder="Enter First Name"
+                                />
+                                <span th:if="${#fields.hasErrors('firstName')}"
+                                th:errors="*{firstName}" style="color: red;">
+                            </div>
+
+                            <div class = "form-group col-md-6 py-2">
+                                <label>Last Name</label>
+                                <input
+                                type = "text"
+                                name = "lastName"
+                                th:field = "*{lastName}"
+                                class = "form-control"
+                                placeholder="Enter LastName"
+                                />
+                                <span th:if="${#fields.hasErrors('lastName')}"
+                                th:errors="*{lastName}" style="color: red;">
+                            </div>
+
+                            <div class = "form-group col-md-6 py-2">
+                                <label>Email Address</label>
+                                <input
+                                type = "text"
+                                name = "email"
+                                th:field = "*{email}"
+                                class = "form-control"
+                                placeholder="Enter Email Address"
+                                />
+                                <span th:if="${#fields.hasErrors('email')}"
+                                th:errors="*{email}" style="color: red;">
+                            </div>
+                            <div class = "form-group col-md-6 py-2">
+                                <label>Password</label>
+                                <input
+                                type = "text"
+                                name = "password"
+                                th:field = "*{password}"
+                                class = "form-control"
+                                placeholder="Enter Password"
+                                />
+                                <span th:if="${#fields.hasErrors('password')}"
+                                th:errors="*{password}" style="color: red;">
+                            </div>
+                        </div>
+                            <div class = "box-footer py-2">
+                                <button type = "submit" class = "btn btn-primary">
+                                    Submit
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+
+    <footer th:replace="fragments/layout.html :: footer"/>
+</html>

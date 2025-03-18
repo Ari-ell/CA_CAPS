@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="fragments/layout.html :: html_head"></head>
+
+<body style="margin-left: 20px; margin-top:20px">
+    <div th:replace="fragments/layout.html :: header"/> 
+    <div th:replace="fragments/layout.html :: menu"/>
+    <br/>
+	<div class="margin-auto">
+		
+		<h4 style="font-weight: bolder; padding-top: 1.5rem; padding-bottom: 1rem;">Student Details</h4>
+			<div>
+			<table th:if="${not #lists.isEmpty(studentList)}" class="table table-striped">
+				<thead>
+				  <tr>
+					<!-- <th scope="col"><span th:text = "#{fieldLabel.studentMatNo}"></span></th>
+					<th scope="col"><span th:text = "#{fieldLabel.firstName}"></span</th>
+					<th scope="col"><span th:text = "#{fieldLabel.lastName}"></span</th>
+					<th scope="col"><span th:text = "#{fieldLabel.email}"></span</th> -->
+					<th scope="col">Matriculation ID</th>
+					<th scope="col">First Name</th>
+					<th scope="col">Last Name</th>
+					<th scope="col">Email</th>
+					<!-- <th scope="col"><span th:text = "#{fieldLabel.password}"></span</th> -->
+				  </tr>
+				</thead>
+				  <tr th:each="student : ${studentList}" class="listRecord" style="width: fit-content;">
+					<td align="left" th:text="${student.username}"></span></td>
+					<td align="left" th:text="${student.firstName}"></span></td>
+					<td align="left" th:text="${student.lastName}"></span></td>
+					<td align="left" th:text="${student.email}"></span></td>
+					<!-- <td align="left" th:text="${student.password}"></span></td> -->
+					<!-- why doesn't #{caption.edit} and #{caption.delete} work here? -->
+					<td><a th:href="@{/admin/studentManagement/edit/}+${student.id}" class="btn btn-info"><span
+						  th:text="'Edit'"></span></a></td>
+					<td><a th:href="@{/admin/studentManagement/delete/}+${student.id}" class="btn btn-warning"><span
+						  th:text="'Delete'"></span></a></td>
+				  </tr>
+				</table>
+			</div>	
+    </div>
+</body>
+<br/>
+<br/>
+<footer th:replace="fragments/layout.html :: footer"/>
+</html>

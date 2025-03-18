@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="fragments/layout.html :: html_head">
+<title>Student - Available Courses</title>
+</head>
+<body style="margin-left: 20px; margin-top:20px">
+    <div th:replace="fragments/layout.html :: header"/>
+    <div th:replace="fragments/layout.html :: menu"/>
+    <div>
+        
+        <h4 style="font-weight: bolder; padding-top: 1.5rem; padding-bottom: 0.5rem;">Available Courses</h4>
+        
+        <div>
+            <table th:if="${not #lists.isEmpty(courses)}" class="table table-striped" style="border-color: black;">
+                <thead>
+                    <tr>
+                        <th scope="col">S/N</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Code</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Credits</th>
+                        <th scope="col">Duration</th>
+                        <th scope="col">Taught By</th>
+                        <th scope="col">Capacity</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="course, iStat : ${courses}" style="width: min-content;">
+                        <td th:text="${iStat.index + 1}"></td>
+                        <td th:text="${course.name}"></td>
+                        <td th:text="${course.courseCode}"></td>
+                        <td th:text="${course.description}"></td>
+                        <td th:text="${course.credits}"></td>
+                        <td th:text="${course.startDate + ' to ' + course.endDate}"></td>
+                        <td>
+                            <div th:if="${not #lists.isEmpty(course.lecturers)}">
+                                <div th:each="lecturer : ${course.lecturers}">
+                                    <div th:text="${lecturer.firstName + ' ' + lecturer.lastName}"></div><br/>
+                                </div> 
+                            </div>
+                        </td>
+                        <td th:text="${enrolCount[iStat.index] + ' / ' + course.capacity}" style="text-align:center;"></td>
+                        <td>
+                            <div th:if="${enrolCount[iStat.index] &lt; course.capacity}">
+                                <a class="btn btn-info" th:href="@{'/student/courses/' + ${course.id}}">Enroll</a>
+                            </div>
+                            <div  th:if="${enrolCount[iStat.index] &gt;= course.capacity}">
+                                <a class="btn btn-secondary">At Capacity</a>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+
+<footer th:replace="fragments/layout.html :: footer"></footer>

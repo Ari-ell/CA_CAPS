@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head th:replace="fragments/layout.html :: html_head">
+<title>Student - Home</title>
+</head>
+
+<body style="margin-left: 20px; margin-top:20px">
+    <div th:replace="fragments/layout.html :: header"/>
+    <div th:replace="fragments/layout.html :: menu"/>
+    <div>
+        <h4 style="font-weight: bolder; padding: 1.5rem; padding-bottom:0.5rem ;">Enrolled Courses</h4>
+        <div>
+            <table th:if="${not #lists.isEmpty(enrollments)}" class="table table-striped" style="border-color: black;">
+                <thead>
+                    <tr>
+                        <th scope="col">S/N</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Code</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Credits</th>
+                        <th scope="col">Duration</th>
+                        <th scope="col">Taught By</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="enrol, iStat : ${enrollments}" style="width: min-content;">
+                        <td th:text="${iStat.index + 1}"></td>
+                        <td th:text="${enrol.course.name}"></td>
+                        <td th:text="${enrol.course.courseCode}"></td>
+                        <td th:text="${enrol.course.description}"></td>
+                        <td th:text="${enrol.course.credits}"></td>
+                        <td th:text="${enrol.course.startDate + ' to ' + enrol.course.endDate}"></td>
+                        <td>
+                            <div th:if="${not #lists.isEmpty(enrol.course.lecturers)}">
+                                <div th:each="lecturer : ${enrol.course.lecturers}">
+                                    <div th:text="${lecturer.firstName + ' ' + lecturer.lastName}"></div><br/>
+                                </div> 
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+
+<footer th:replace="fragments/layout.html :: footer"/>
+</html>

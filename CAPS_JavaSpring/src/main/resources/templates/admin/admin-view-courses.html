@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/layout.html :: html_head">
+    <title>Admin - View Course</title>
+</head>
+
+<body style="margin-left: 20px; margin-top: 20px">
+    <div th:replace="fragments/layout.html :: header"></div>
+    <div th:replace="fragments/layout.html :: menu"></div>
+    <br />
+
+    <div class="container">
+        <div class="row">
+            <h3 style="font-weight: bolder; padding-bottom: 1rem;">All Courses</h3>
+        </div>
+
+        <table th:if="${not #lists.isEmpty(courses)}" class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Course Name</th>
+                    <th scope="col">Course Code</th>
+                    <th scope="col">Start Date</th>
+                    <th scope="col">End Date</th>
+                    <th scope="col">No. of Lecturers</th>
+                    <th scope="col">No. of Enrolled Students </th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr th:each="course: ${courses}">
+                    <td><span th:text="${course.name}"></span></td>
+                    <td th:text="${course.courseCode}"></td>
+                    <td><span th:text="${course.startDate}"></span></td>
+                    <td><span th:text="${course.endDate}"></span></td>
+                    <td th:text="${course.numberOfLecturersTeaching}"></td>
+                    <td th:text="${course.numberOfStudentsEnrolled}"></td>
+
+                    <td>
+                        <a th:href="@{/admin/courses/{id}(id=${course.id})}" class="btn btn-info">Details</a>
+
+                        <a th:href="@{/admin/courses/edit/{id}(id=${course.id})}" class="btn btn-primary">Update</a>
+
+                        <a th:href="@{/admin/courses/soft-delete/{id}(id=${course.id})}" class="btn btn-danger">Delete</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- Pagination -->
+        <ul class="pagination justify-content-center">
+            <li th:class="${currentPage == 0 ? 'page-item disabled' : 'page-item'}">
+                <a th:href="@{/admin/courses(page=0, size=${size})}" class="page-link">First</a>
+            </li>
+            <li th:class="${currentPage == 0 ? 'page-item disabled' : 'page-item'}">
+                <a th:href="@{/admin/courses(page=${currentPage - 1}, size=${size})}" class="page-link">Previous</a>
+            </li>
+            <li th:each="page : ${#numbers.sequence(0, totalPages - 1)}"
+                th:class="${currentPage == page ? 'page-item active' : 'page-item'}">
+                <a th:href="@{/admin/courses(page=${page}, size=${size})}" class="page-link" th:text="${page + 1}"></a>
+            </li>
+            <li th:class="${currentPage == totalPages - 1 ? 'page-item disabled' : 'page-item'}">
+                <a th:href="@{/admin/courses(page=${currentPage + 1}, size=${size})}" class="page-link">Next</a>
+            </li>
+            <li th:class="${currentPage == totalPages - 1 ? 'page-item disabled' : 'page-item'}">
+                <a th:href="@{/admin/courses(page=${totalPages - 1}, size=${size})}" class="page-link">Last</a>
+            </li>
+        </ul>
+    </div>
+    
+    <footer th:replace="fragments/layout.html :: footer" />
+</html>

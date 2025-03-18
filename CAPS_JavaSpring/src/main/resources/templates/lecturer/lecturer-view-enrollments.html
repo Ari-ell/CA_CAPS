@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="fragments/layout.html :: html_head"></head>
+
+<body style="margin-left: 20px; margin-top:20px">
+    <div th:replace="fragments/layout.html :: header"></div>
+    <div th:replace="fragments/layout.html :: menu"></div>
+    <br/>
+    <div>
+        <!-- button group for courses taught by lecturer -->
+        <h4 style="font-weight: bolder;">Manage Student Grades</h4>
+        <h5 style="padding-top: 1.5rem;">Filter By Course:</h5>
+        <div class="btn-group btn-group-toggle" data-toggle="buttons" aria-label="course group" th:each="course : ${courses}">
+            <a class="btn btn-secondary" th:href="@{'/lecturer/enrollments/' + ${course.id}}" role="button" th:text="${course.name}">Teachings</a>
+        </div>
+        <br/>
+        <br/>
+        <br/>
+        <!-- table of enrollments for all/selected courses  -->
+        <h5 style="padding-bottom:0.5rem;">Enrollment Details:</h5>
+        <div>
+            <table th:if="${not #lists.isEmpty(enrollments)}" class="table table-striped">
+              <thead>
+                <tr>
+                  <th scope="col">Course Name</th>
+                  <th scope="col">Course Code</th>
+                  <th scope="col">Enrollment Status</th>
+                  <th scope="col">Student Matric No.</th>
+                  <th scope="col">Full Name</th>
+                  <th scope="col">Grade</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr th:each="enrollment, iStat : ${enrollments}">
+                  <td><span th:text="${enrollment.course.name}"></span></td>
+                  <td><span th:text="${enrollment.course.courseCode}"></span></td>
+                  <td><span th:text="${enrollment.enrollmentStatus}"></span></td>
+                  <td><span th:text="${enrollment.student.username}"></span></td>
+                  <td><span th:text="${enrollment.student.firstName + ' ' + enrollment.student.lastName}"></span></td>
+                  <td><span th:text="${grades[iStat.index]} != null ? ${grades[iStat.index].grade} : ' '"></span></td>
+                  <td><a class="btn btn-secondary"  th:href="@{'/lecturer/enrollments/' + ${enrollment.student.id} + '/' + ${enrollment.course.id}}" role="button" th:text="${enrollment.score} != null ? 'Edit Score' : 'Add Score'"></a></td>
+                </tr>
+              </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+
+<footer th:replace="fragments/layout.html :: footer"></footer>
+</html>

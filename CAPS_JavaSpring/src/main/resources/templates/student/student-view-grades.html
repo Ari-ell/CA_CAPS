@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="fragments/layout.html :: html_head">
+<title>Student - View Grades</title>
+</head>
+
+<body style="margin-left: 10px; margin-top:10px">
+    <div th:replace="fragments/layout.html :: header"></div>
+    <div th:replace="fragments/layout.html :: menu"></div>
+    <br/>
+	<div class="margin-auto">
+		<br/>
+        <h4>Personal Particulars</h4>
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th scope="col">Matriculation ID</th>
+					<th scope="col">Full Name</th>
+					<th scope="col">Email</th>
+					<th scope="col">Enrollment Date</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td th:text=${student.username}>Matric No.</td>
+					<td th:text="${student.firstName + ' ' + student.lastName}">Name</td>
+					<td th:text=${student.email}>Email</td>
+					<td th:text=${student.enrollmentDate}>Enrollment Date</td>
+				</tr>
+			</tbody>
+		</table>
+        <br/>
+		<br/>
+        <h4 style="font-weight: bolder;">Enrolled Courses</h4>
+		<br/>
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th scope="col">Course Name</th>
+					<th scope="col">Course Code</th>
+					<th scope="col">Enrollment Status</th>
+					<th scope="col">Course Credits</th>
+					<th scope="col">Grade Point</th>
+					<th scope="col">Grade</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="enrol, iStat : ${enrollments}">
+					<td th:text=${enrol.course.name}>Course Name</td>
+					<td th:text=${enrol.course.courseCode}>Course Code</td>
+					<td th:text=${enrol.enrollmentStatus}>Enrollment Status</td>
+                    <td th:text=${enrol.course.credits}>Course Credits</td>
+                    <td th:text="${grades[iStat.index]} != null ? ${grades[iStat.index].gradePoint} : 'Not yet graded'">Grade Point</td>
+                    <td th:text="${grades[iStat.index]} != null ? ${grades[iStat.index].grade} : '-'">Grade</td>
+				</tr>
+                <tr style="background-color: azure;">
+					<td></td>
+					<td></td>
+                    <td></td>
+					<td style="font-weight: bolder;">Grade Point Average (GPA)</td>
+					<td th:text="${#numbers.formatDecimal(gpa,1,2)}" style="font-weight: bolder; text-align:justify;" >gpa</td>
+					<td></td>
+				</tr>
+			</tbody>
+		</table>
+    </div>
+</body>
+<br/>
+<br/>
+<footer th:replace="fragments/layout.html :: footer"></footer>
+</html>

@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="fragments/layout.html :: html_head">
+        <title>Admin - Create Course</title>
+    </head>
+    <body style="margin-left: 20px; margin-top:20px">
+        <div th:replace="fragments/layout.html :: header"/>
+        <!-- <div th:replace="fragments/layout.html :: menu"/> -->
+        <nav class="navbar navbar-expand-md navbar-light" style="background-color: lightblue;">
+            <nav class="navbar navbar-expand-ld bg-body-tertiary">
+                <div class="container-fluid">
+                    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" th:href="@{/admin/dashboard}">Home</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Manage Students
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" th:href="@{/admin/studentManagement/list}">View students</a></li>
+                                    <li><a class="dropdown-item" th:href="@{/admin/studentManagement/create}">Add New Student</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Manage Lecturers
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" th:href="@{/admin/lecturer/list}">Manage Lecturers</a></li>
+                                    <li><a class="dropdown-item" th:href="@{/admin/lecturer/new}">Add New Lecturer</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Manage Courses
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" th:href="@{/admin/courses}">Manage Courses</a></li>
+                                    <li><a class="dropdown-item" th:href="@{/admin/courses/new}">Add New Course</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Manage Enrollments
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" th:href="@{/admin/request}">View Enrollment Reject Requests</a></li>
+                                    <li><a class="dropdown-item" th:href="@{/admin/request/history}">View Enrollment Reject History</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </nav>
+    
+        <br/>
+
+        <div class = "container">
+            <div class = "row">
+                <div class = "col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
+                    <h3 class = "text-center" style="padding-top: 1rem;">Create New Course</h3>
+                    <div class = "card-body">
+                        <form th:action = "@{/admin/courses/new}" th:object = "${course}" method = "POST">
+                        <div class = "form-row">
+                            <div class = "form-group form-group col-md-12 py-2">
+                                <label>Course Name</label>
+                                <input
+                                type = "text"
+                                name = "name"
+                                th:field = "*{name}"
+                                class = "form-control"
+                                placeholder="Enter Course Name"
+                                />
+                                <span th:if="${#fields.hasErrors('name')}"
+                                th:errors="*{name}" class="text-danger" >
+                            </div>
+                        
+                            <div class = "form-group form-group col-md-12 py-2">
+                                <label>Course Description</label>
+                                <input
+                                type = "text"
+                                name = "description"
+                                th:field = "*{description}"
+                                class = "form-control"
+                                placeholder="Enter Course Description"
+                                />
+                                <span th:if="${#fields.hasErrors('description')}"
+                                th:errors="*{description}" class="text-danger" >
+                            </div>
+                            
+
+                            <div class = "form-group col-md-6 py-2">
+                                <label>Course Capacity</label>
+                                <input
+                                type = "number"
+                                name = "capacity"
+                                th:field = "*{capacity}"
+                                class = "form-control"
+                                placeholder="Enter Course Capacity"
+                                />
+                                <span th:if="${#fields.hasErrors('capacity')}"
+                                th:errors="*{capacity}" class="text-danger" >
+                            </div>
+
+                            <div class = "form-group col-md-6 py-2">
+                                <label>Course Credits</label>
+                                <input
+                                type = "number"
+                                name = "credits"
+                                th:field = "*{credits}"
+                                class = "form-control"
+                                placeholder="Enter Course Credits"
+                                />
+                                <span th:if="${#fields.hasErrors('credits')}"
+                                th:errors="*{credits}" class="text-danger" >
+                            </div>
+
+                            <div class = "form-group col-md-6 py-2">
+                                <label>Course Start Date</label>
+                                <input
+                                type = "date"
+                                name = "startDate"
+                                th:field = "*{startDate}"
+                                class = "form-control"
+                                placeholder="Enter Course Start Date"
+                                />
+                                <span th:if="${#fields.hasErrors('startDate')}"
+                                th:errors="*{startDate}" class="text-danger" >
+                            </div>
+                            
+                            <div class = "form-group col-md-6 py-2">
+                                <label>Course End Date</label>
+                                <input
+                                type = "date"
+                                name = "endDate"
+                                th:field = "*{endDate}"
+                                class = "form-control"
+                                placeholder="Enter Course End Date"
+                                />
+                                <span th:if="${#fields.hasErrors('endDate')}"
+                                th:errors="*{endDate}" class="text-danger" >
+                            </div>
+                        </div>
+                            <div class = "box-footer py-2">
+                                <button type = "submit" class = "btn btn-primary">
+                                    Submit
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+    
+    <footer th:replace="fragments/layout.html :: footer"/>
+</html>

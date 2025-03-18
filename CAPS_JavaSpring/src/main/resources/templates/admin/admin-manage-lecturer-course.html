@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="fragments/layout.html :: html_head">
+<title>Admin - Manage Lecturer Teachings</title>
+</head>
+<body style="margin-left: 20px; margin-top:20px">
+    <div th:replace="fragments/layout.html :: header"/>
+    <div th:replace="fragments/layout.html :: menu"/>
+    <div>
+        
+        <div>
+            <h4 class="py-4 inline-block" style="font-weight: bolder;" 
+            th:text="${ 'Lecturer: ' + '[' + lecturer.username + '] ' + lecturer.firstName + ' ' + lecturer.lastName}">
+                [Username] Lecturer Name 
+            </h4>
+        </div>
+
+        <!-- Courses Taught -->
+        <h5 style="font-weight: bolder" class="pt-2 pb-1">Current Courses Taught:</h5>
+        <div>
+            <table th:if="${not #lists.isEmpty(coursesTaught)}" class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">S/N</th>
+                        <th scope="col">Code</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Credits</th>
+                        <th scope="col">Duration</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="course, iStat : ${coursesTaught}" style="width: min-content;">
+                        <td th:text="${iStat.index + 1}"></td>
+                        <td th:text="${course.courseCode}"></td>
+                        <td th:text="${course.name}"></td>
+                        <td th:text="${course.description}"></td>
+                        <td th:text="${course.credits}"></td>
+                        <td th:text="${course.startDate + ' to ' + course.endDate}"></td>
+                        <td>
+                            <div>
+                                <a class="btn btn-danger" th:href="@{'/admin/lecturer/course-remove/'+ ${lecturer.id} + '/' + ${course.id}}">Remove</a>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Courses Not Taught -->
+        <h5 style="font-weight: bolder;" class="pt-4 pb-1">Available Courses:</h5>
+        <div>
+            <table th:if="${not #lists.isEmpty(coursesTaught)}" class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">S/N</th>
+                        <th scope="col">Code</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Credits</th>
+                        <th scope="col">Duration</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="course, iStat : ${coursesNotTaught}" style="width: min-content;">
+                        <td th:text="${iStat.index + 1}"></td>
+                        <td th:text="${course.courseCode}"></td>
+                        <td th:text="${course.name}"></td>
+                        <td th:text="${course.description}"></td>
+                        <td th:text="${course.credits}"></td>
+                        <td th:text="${course.startDate + ' to ' + course.endDate}"></td>
+                        <td>
+                            <div>
+                                <a class="btn btn-success" th:href="@{'/admin/lecturer/course-add/'+ ${lecturer.id} + '/' + ${course.id}}">Add</a>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="submit-button d-flex py-3">
+            <a class="btn btn-secondary" th:href="@{/admin/lecturer/list}">Back</a>
+        </div>
+
+    </div>
+</body>
+
+<footer th:replace="fragments/layout.html :: footer"></footer>
